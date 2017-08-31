@@ -18,7 +18,7 @@ EYApp.service('topicService', ['$http','Constants', '$q', function ($http,Consta
         
         createTopic: function(topicData){
             var req = {
-                url: topicUrl + 'addTopic',
+                url: '/addTopic',
                 method: 'POST',
 				data : topicData
             };
