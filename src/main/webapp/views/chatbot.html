@@ -11,7 +11,7 @@
 					<div ng-bind-html="chatText.message">
 					</div>
 					<div ng-repeat="button in chatText.buttons" style="display: block;">
-						<button class="btn chatButton" ng-click="optionSelected(button)">{{button}}</button>
+						<button class="btn chatButton" ng-disabled="chatText.buttonDisabled" ng-click="optionSelected(button,chatText.message)">{{button}}</button>
 					</div>
 				</div>
 			</div>

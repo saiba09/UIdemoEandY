@@ -1,4 +1,5 @@
 EYApp.controller('chatbotCtrl', ['$scope', '$state', '$timeout', '$http', 'chatService', function($scope, $state, $timeout, $http, chatService){
+	document.getElementById("message").focus();
 	var chatData;
 	var	sessionId = generateSessionId();
 	$scope.chatArray = [];	
@@ -11,7 +12,8 @@ EYApp.controller('chatbotCtrl', ['$scope', '$state', '$timeout', '$http', 'chatS
 			var msg = $scope.message;
 			chatData={
 					"message" : msg,
-					"btn" : []
+					"buttons" : [],
+					"buttonDisabled" : false
 				};
 			$scope.chatArray.push(chatData);
 			$scope.message="";
@@ -20,11 +22,21 @@ EYApp.controller('chatbotCtrl', ['$scope', '$state', '$timeout', '$http', 'chatS
 		}		
 	}
 	
-	$scope.optionSelected = function(option)
+	$scope.optionSelected = function(option,chatText)
 	{
+		for(var i=0; i<$scope.chatArray.length; i++)
+		{
+			if($scope.chatArray[i].message == chatText)
+			{
+				$scope.chatArray[i].buttonDisabled = true;
+				break;
+			}
+		}
+		$scope.message="";
+		document.getElementById("message").focus();
 		chatData={
 				"message" : option,
-				"btn" : []
+				"buttons" : []
 			};
 		$scope.chatArray.push(chatData);
 		$scope.callPostService(option);
@@ -38,7 +50,7 @@ EYApp.controller('chatbotCtrl', ['$scope', '$state', '$timeout', '$http', 'chatS
 				$scope.chatArray.push(parseResponse(response.data.displayText));
 			},
 			function(error){
-			   console.log(errorMsg+' '+error);
+			   console.log("errorMsg"+' '+error);
 			});
 	}
 	
@@ -59,7 +71,7 @@ EYApp.controller('chatbotCtrl', ['$scope', '$state', '$timeout', '$http', 'chatS
 
 		chatData={
 					"message" : data,
-					"btn" : btns
+					"buttons" : btns
 				};
 		return chatData;
 	}
