@@ -1,5 +1,0 @@
-{
-    "BASE_URL" : "http://10.88.36.72:8080/MHPA/api/v1.0/",
-    "DEBUG" : true,
-	"BUILD_VERSION":"0.0.1-Snapshot"
-}
